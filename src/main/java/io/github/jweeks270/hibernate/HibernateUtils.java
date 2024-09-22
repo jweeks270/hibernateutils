@@ -44,6 +44,7 @@ public class HibernateUtils {
 	 * @param entityManager An entity manager object passed to the method
 	 * @param querySb An ArrayList of Strings to assemble a dynamic query
 	 * @param queryParams A String, Object Map to contain the bind variables for the assembled query
+     * @param delimiter A character delimiter in your table names > IE - THE_TABLE_NAME becomes theTableName when '_' is passed as the delimiter
      * @param klazz The output class to map results to
 	 *
      * @throws ClassCastException If there isn't a name matching that can be mapped in the result, or there's an issue creating an instance of the mapping POJO class, a ClassCastException will be thrown
@@ -51,7 +52,7 @@ public class HibernateUtils {
 	 * @return A List of mapped POJO's from the input query
 	*/
     @SuppressWarnings("unchecked")
-    public static <T> List<T> createNativePojoProjection(EntityManager entityManager, List<String> querySb, Map<String, Object> queryParams, Class<T> klazz) {
+    public static <T> List<T> createNativePojoProjection(EntityManager entityManager, List<String> querySb, Map<String, Object> queryParams, Character delimiter, Class<T> klazz) {
         @SuppressWarnings("java:S1854")
         List<T> resultList = new ArrayList<>();
         Query query = entityManager.createNativeQuery(createQueryString(querySb));
@@ -75,7 +76,7 @@ public class HibernateUtils {
                         
                         AtomicInteger count = new AtomicInteger(0);
                         Arrays.asList(aliases).forEach(alias -> {
-                            String comp = StringUtils.convertToCamelCase(alias, '_');
+                            String comp = StringUtils.convertToCamelCase(alias, delimiter);
 
                             Field fieldToSet = fieldList.stream().filter(i -> i.getName().equalsIgnoreCase(comp)).findFirst().orElse(null);
 

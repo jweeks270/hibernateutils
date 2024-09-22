@@ -6,7 +6,7 @@
 
   <groupId>io.github.jweeks270</groupId>
   <artifactId>hibernateutils</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>A dependency implementation of a method that allows native sql to be mapped into a given POJO</description>
@@ -49,7 +49,7 @@
     <dependency>
       <groupId>io.github.jweeks270</groupId>
       <artifactId>jutils</artifactId>
-      <version>1.0.2</version>
+      <version>1.0.6</version>
     </dependency>
   </dependencies>
 
